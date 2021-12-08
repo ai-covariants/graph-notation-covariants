@@ -1,0 +1,106 @@
+1. Alpha Variant:
+	N501Y
+	A570D
+	P681H
+	T716I
+	S982A
+	D1118H
+	https://en.wikipedia.org/wiki/SARS-CoV-2_Alpha_variant#CITEREFChand_et_al.
+	
+2. Beta Variant:
+	
+	Particular Interest:
+		K417N
+		E484K
+		N501Y
+	
+	Less concerning:
+		L18F
+		D80A
+		D215G
+		R246I
+		A701V
+		
+		
+3. Gamma Variant
+	L18F
+	T20N
+	P26S
+	D138Y
+	R190S
+	K417T
+	E484K
+	N501Y
+	H655Y
+	T1027I
+	
+4. Delta Variant
+	L452R
+	T478K
+	D614G
+	P681R
+	D950N
+	E156del
+	F157del
+	
+5. Lambda Variant (Confirm once):
+	L452Q
+	F490S
+	D614G
+	G75V
+	T76I
+	
+6. Mu Variant
+	T95I
+	Y144S
+	Y145N
+	R346K
+	E484K
+	N501Y
+	D614G
+	P681H
+	D950N
+	
+7. Kappa Variant:
+	E154K
+	L452R
+	E484Q
+	D614G
+	P681R
+	Q1071H
+	
+8. Omicron Variant:
+	A67V
+	Δ69-70
+	T95I
+	G142D,
+	Δ143-145
+	Δ211
+	L212I
+	ins214EPE
+	G339D
+	S371L
+	S373P
+	S375F
+	K417N
+	N440K
+	G446S
+	S477N
+	T478K
+	E484A
+	Q493R
+	G496S
+	Q498R
+	N501Y
+	Y505H
+	T547K
+	D614G
+	H655Y
+	N679K
+	P681H
+	N764K
+	D796Y
+	N856K
+	Q954H
+	N969K
+	L981F
