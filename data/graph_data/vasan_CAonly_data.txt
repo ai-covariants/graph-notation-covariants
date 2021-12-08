@@ -1,0 +1,7 @@
+Number of nodes:1121
+Number of edges:4181
+Average shortest path:20.024540
+Diameter:50.000000
+Radius:25.000000
+Clustering coefficient:0.497344
+Average degree:7.459411
