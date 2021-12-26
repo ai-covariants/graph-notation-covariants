@@ -1,6 +1,6 @@
 import pandas as pd
 import networkx as nx
-from graph import (create_centrality_graph)
+from centrality import (create_centrality_graph)
 from pin import (read_pdb)
 from pathlib import Path
 import os
