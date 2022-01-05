@@ -1,4 +1,4 @@
-Node	Degree	Cluster_Coeff	Closeness	Betweenness	Eigenvector centrality	Eccentricity	Average neighbor degree
+Node	Degree	Cluster_Coeff	Closeness	Betweenness	Eigenvector_centrality	Eccentricity	Average_neighbor_degree
 C27	5	0.700000	0.054222	0.000156	0.000000	37	7.800000
 C28	6	0.733333	0.056463	0.001161	0.000000	36	8.500000
 C29	8	0.500000	0.059203	0.031677	0.000000	35	8.125000
