@@ -5,7 +5,6 @@ from sklearn.preprocessing import MinMaxScaler
 
 
 def create_centrality_df_from_graph(G):
-    degreecol = nx.degree(G)
     degreec = nx.degree_centrality(G)
     eigenvectorc = nx.eigenvector_centrality(G, tol=1e-03)
     closenessc = nx.closeness_centrality(G)
@@ -13,7 +12,7 @@ def create_centrality_df_from_graph(G):
     clusteringc = nx.clustering(G)
     dd = defaultdict(list)
 
-    for d in (degreecol, degreec, eigenvectorc, closenessc, betweennessc, clusteringc):
+    for d in (degreec, eigenvectorc, closenessc, betweennessc, clusteringc):
         for key, value in d.items():
             dd[key].append(value)
 
@@ -36,7 +35,7 @@ def print_top(df, number = 5, to_scale = True, smallest_also = False, crop_range
 
     if crop_range is not None:
         datascaled = datascaled.iloc[crop_range]
-    for col in ['Degree', 'Cluster_Coeff', 'Closeness', 'Betweenness', 'Eigenvector', 'centrality', 'Eccentricity']:
+    for col in ['Degree', 'Closeness', 'Betweenness', 'Eigenvector', 'Clustering']:
         print(f'TOP {number} Values in {col}:')
         print(datascaled.nlargest(number, col))
         if smallest_also == True:

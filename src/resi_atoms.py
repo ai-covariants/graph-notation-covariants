@@ -31,6 +31,7 @@ AMINO_ACIDS = [
 ]
 
 BOND_TYPES = [
+    "radial",
     "hydrophobic",
     "disulfide",
     "hbond",

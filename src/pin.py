@@ -4,6 +4,7 @@ from itertools import combinations
 from pathlib import Path
 
 import networkx as nx
+from networkx.algorithms.distance_measures import radius
 import numpy as np
 import pandas as pd
 from biopandas.pdb import PandasPdb
@@ -55,9 +56,9 @@ def compute_chain_pos_aa_mapping(pdb_df):
 
 def read_pdb(path):
     pdb_df = pdb2df(path)
-    print(f"pdb_df index : {pdb_df.index}")
-    print(f"pdb_df cols: {pdb_df.columns}")
-    print(f"atom name values: {pdb_df['atom_name'].tolist()}")
+    # print(f"pdb_df index : {pdb_df.index}")
+    # print(f"pdb_df cols: {pdb_df.columns}")
+    # print(f"atom name values: {pdb_df['atom_name'].tolist()}")
     rgroup_df = compute_rgroup_dataframe(pdb_df)
     chain_pos_aa = compute_chain_pos_aa_mapping(pdb_df=pdb_df)
 
@@ -71,7 +72,11 @@ def read_pdb(path):
         partial(add_cation_pi_interactions, rgroup_df=rgroup_df),
     ]
 
-    G = compute_interaction_graph(pdb_df, chain_pos_aa, edge_funcs=None)
+    radius_list = [
+        partial(add_radius_based_edges, pdb_df=pdb_df)
+    ]
+
+    G = compute_interaction_graph(pdb_df, chain_pos_aa, edge_funcs=radius_list)
 
     return G
 
@@ -134,11 +139,18 @@ def convert_all_sets_to_lists(G):
             if isinstance(v, set):
                 G.edges[u1, u2][k] = list(v)
 
+def add_radius_based_edges(G, pdb_df, radius=7):
+    r_df = filter_dataframe(pdb_df, "atom_name", ["C", "CA"], True)
+    distmat = compute_distmat(r_df)
+    interacting_atoms = get_interacting_atoms(radius, distmat)
+    add_interacting_resis(
+        G, interacting_atoms, r_df, ["radial"]
+    )
 
 def compute_rgroup_dataframe(pdb_df):
     """Return the atoms that are in R-groups and not the backbone chain."""
     rgroup_df = filter_dataframe(pdb_df, "atom_name", BACKBONE_ATOMS, False)
-    print(f"rgroup df: {rgroup_df.head()}")
+    #print(f"rgroup df: {rgroup_df.head()}")
     return rgroup_df
 
 
@@ -152,7 +164,7 @@ def filter_dataframe(dataframe, by_column, list_of_values, boolean):
     df = dataframe.copy()
     df = df[df[by_column].isin(list_of_values) == boolean]
     df.reset_index(inplace=True, drop=True)
-    print(f"filter df results: {df.head()}")
+    #print(f"filter df results: {df.head()}")
 
     return df
 
@@ -160,7 +172,7 @@ def filter_dataframe(dataframe, by_column, list_of_values, boolean):
 def compute_distmat(pdb_df):
     # Compute pairwise euclidean distances between every atom
 
-    print(pdb_df[['x_coord', 'y_coord', 'z_coord']])
+    #print(pdb_df[['x_coord', 'y_coord', 'z_coord']])
     eucl_dists = pdist(
         pdb_df[['x_coord', 'y_coord', 'z_coord']],
         metric='euclidean'
@@ -522,6 +534,7 @@ def add_interacting_resis(G, interacting_atoms, dataframe, kind):
                             - aromatic_sulphur
                             - cation_pi
                             - delaunay
+                            - radial (i.e. within a radius of r angstroms)
     Returns:
     ========
     - filtered_interacting_resis: (set of tuples) the residues that are in
